@@ -1,0 +1,12 @@
+{
+    "name": "b-hayes/b-hayes",
+    "autoload": {
+        "psr-4": {
+            "BHayes\\BHayes\\": "src/"
+        }
+    },
+    "require": {
+        "php": "^8.1",
+        "erusev/parsedown": "^1.7"
+    }
+}
