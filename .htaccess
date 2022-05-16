@@ -1,9 +1,9 @@
 # Redirect ALL requests to the public subfolder.
-## For web hosts that force you yo have your entire project inside the public html folder.
+## For web hosts that force you to have your source inside the public html folder.
 
 #enable url rewriting
 RewriteEngine on
 
-#Force all requests to go to your project nested public folder
+#Force all requests to go to your projects nested public folder
 RewriteCond %{ENV:REDIRECT_STATUS} ^$
 RewriteRule (.*) /public/$1 [L]
