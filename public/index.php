@@ -4,7 +4,7 @@ declare(strict_types=1);
 try {
     require_once __DIR__ . '/../vendor/autoload.php';
 
-    echo basename(getcwd());
+    echo basename(getcwd()), ' ', $_SERVER['HTTP_HOST'];
 
     $parsedown = new Parsedown();
     echo $parsedown->text(file_get_contents(__DIR__ . '/../README.md'));
