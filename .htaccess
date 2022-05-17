@@ -5,4 +5,5 @@
 RewriteEngine on
 
 #Force all requests to go to your projects nested public folder
-RewriteRule (.*) /public/$1 [L]
+RewriteCond %{REQUEST_URI} !^/public
+RewriteRule ^(.*)$ /public/$1 [NC,L]
