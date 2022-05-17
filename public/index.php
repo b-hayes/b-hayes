@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 try {
+    chdir(__DIR__);//ensure a consistent working dir just in case.
     require_once __DIR__ . '/../vendor/autoload.php';
 
     $parsedown = new Parsedown();
