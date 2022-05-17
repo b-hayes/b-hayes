@@ -5,6 +5,23 @@ namespace BHayes\BHayes;
 
 class Router
 {
+    private array $routes = [];
+
+    public function execute(string $method, string $path): Response
+    {
+        return $this->routes[$method][$path];
+    }
+
+    public function add(string $method, string $path, callable $handler)
+    {
+        $this->routes[$method][$path] = $handler;
+    }
+
+    public static function requestUri()
+    {
+        return $_SERVER['REQUEST_URI'];
+    }
+
     /**
      * Attempts to get the clients real ip address even if they are behind a proxy.
      * @return mixed
