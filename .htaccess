@@ -5,8 +5,5 @@
 RewriteEngine on
 
 #Force all requests to go via the public folder
-#RewriteBase /public/
-
-#Force all requests to go via the public folder
 RewriteCond %{ENV:REDIRECT_STATUS} ^$
 RewriteRule (.*) /public/$1 [L]
