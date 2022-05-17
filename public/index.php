@@ -8,10 +8,9 @@ try {
     if ($_SERVER['REQUEST_URI'] === '/') {
         $parsedown = new Parsedown();
         echo $parsedown->text(file_get_contents(__DIR__ . '/../README.md'));
-        return;
+    } else {
+        include __DIR__ . '/404.php';
     }
-
-    include __DIR__ . '/404.php';
 
 } catch (\Throwable $exception) {
     include __DIR__ . '/500.php';
