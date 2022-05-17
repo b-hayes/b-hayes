@@ -4,6 +4,6 @@
 #enable url rewriting
 RewriteEngine on
 
-#Force all requests to go via the public folder
+#Force all requests to go via the public folder, if it has not already redirected here first.
 RewriteCond %{ENV:REDIRECT_STATUS} ^$
 RewriteRule (.*) /public/$1 [L]
