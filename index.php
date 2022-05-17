@@ -1,5 +1,3 @@
 <?php
 
-declare(strict_types=1);
-
-echo "This file should not be seen.";
+require_once __DIR__ . '/public/index.php';
