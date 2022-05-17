@@ -4,3 +4,8 @@ RewriteEngine on
 #Force all requests to go via the public folder
 RewriteCond %{ENV:REDIRECT_STATUS} ^$
 RewriteRule (.*) /public/$1 [L]
+
+# Note the redirect status rule prevents htaccess loop because the nested htaccess redirect back to the /index.php in this folder.
+#   Hence there is an index.php in this folder including the nested one we really want.
+#       require_once __DIR__ . '/public/index.php';
+#   Not the nest solution but onyl way I have right now when host forced me to put the whole project inside a public html folder.
