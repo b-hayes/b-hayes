@@ -1,3 +1,6 @@
+# Redirect ALL requests to the public subfolder.
+# For web hosts that force you to have your source inside the public html folder.
+
 #enable url rewriting
 RewriteEngine on
 
