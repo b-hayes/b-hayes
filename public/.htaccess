@@ -5,7 +5,8 @@
 RewriteEngine on
 
 #restrict access to the dev sub domain by IP address
-#RewriteCond %{HTTP_HOST} !^dev\.
+#RewriteCond %{HTTP_HOST} ^dev\.
+#RewriteCond %{HTTP_HOST} ^qa\.
 #Require ip <enter your ip>
 
 Options +FollowSymlinks
