@@ -5,13 +5,22 @@ namespace BHayes\BHayes;
 
 interface Response
 {
+    /**
+     * @param int      $code
+     * @param string   $reason
+     * @param string   $body
+     * @param string[] $headers int the form of  ['key' => 'value']
+     */
+    public function __construct(int $code, string $reason, string $body, array $headers);
+
     public function code(): int;
-    
+
     public function reason(): string;
 
-    public function body();
+    public function body(): string;
 
-    public function headers();
-
-    public function render(): string;
+    /**
+     * @return string[]
+     */
+    public function headers(): array;
 }

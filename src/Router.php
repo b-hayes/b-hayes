@@ -7,14 +7,19 @@ class Router
 {
     private array $routes = [];
 
-    public function execute(string $method, string $path): Response
+    public function invoke(string $method, string $path): Response
     {
-        return $this->routes[$method][$path];
+        /**
+         * @var $invoker Invoker
+         */
+        $invoker  = $this->routes[$method][$path];
+        $segments = array_filter(explode('/', $path));
+        return $invoker($segments, $_REQUEST);
     }
 
-    public function add(string $method, string $path, callable $handler)
+    public function add(string $method, string $path, Invoker $invoker)
     {
-        $this->routes[$method][$path] = $handler;
+        $this->routes[$method][$path] = $invoker;
     }
 
     public static function requestUri()
