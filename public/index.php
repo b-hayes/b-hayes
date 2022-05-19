@@ -2,14 +2,17 @@
 
 declare(strict_types=1);
 
-use BHayes\BHayes\SelfInvokingResponse;
+use BHayes\BHayes\Router\Renderer;
+use BHayes\BHayes\Router\ResponseException;
+use BHayes\BHayes\Router\Router;
+use BHayes\BHayes\Router\SelfInvokingResponse;
 
 try {
     chdir(__DIR__);//ensure a consistent working dir just in case.
     require_once __DIR__ . '/../vendor/autoload.php';
 
-    $renderer = new \BHayes\BHayes\Renderer();
-    $router = new \BHayes\BHayes\Router();
+    $renderer = new Renderer();
+    $router = new Router();
     $router->add('GET', '/', new SelfInvokingResponse(
         (new Parsedown())->text(file_get_contents(__DIR__ . '/../README.md'))
     ));
@@ -19,7 +22,7 @@ try {
         $response = $router->invoke($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);
         $renderer->render($response);
 
-    } catch (\BHayes\BHayes\ResponseException $responseException) {
+    } catch (ResponseException $responseException) {
 
         $renderer->render($responseException);
 
@@ -31,6 +34,17 @@ try {
 
 } catch (\Throwable $error) {
     include __DIR__ . '/500.php';
+    //show info for local dev.
+    if (substr($_SERVER['HTTP_HOST'], -9) === 'localhost') {
+        echo "<pre style='position: absolute; left: 10px; top: 100vh;'>";
+        var_export([
+            'Error' => $error->getMessage(),
+            ' file' => $error->getFile(),
+            ' line' => $error->getLine(),
+            'trace' => $error->getTrace()
+        ]);
+        echo "</pre>";
+    }
 }
 
 ?>

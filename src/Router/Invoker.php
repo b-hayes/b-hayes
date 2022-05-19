@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace BHayes\BHayes;
+namespace BHayes\BHayes\Router;
 
 interface Invoker
 {
