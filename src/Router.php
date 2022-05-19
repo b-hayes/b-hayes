@@ -38,15 +38,6 @@ class Router
         $this->routes[$method][$path] = $invoker;
     }
 
-    public static function requestUri()
-    {
-        return $_SERVER['REQUEST_URI'];
-    }
-
-    /**
-     * Attempts to get the clients real ip address even if they are behind a proxy.
-     * @return mixed
-     */
     public static function clientIpAddress(): string
     {
         return $_SERVER['HTTP_CLIENT_IP']
