@@ -1,18 +1,32 @@
 <?php
 
 declare(strict_types=1);
+
+use BHayes\BHayes\BasicResponse;
+
 try {
     chdir(__DIR__);//ensure a consistent working dir just in case.
     require_once __DIR__ . '/../vendor/autoload.php';
 
-    if ($_SERVER['REQUEST_URI'] === '/') {
-        $parsedown = new Parsedown();
-        echo $parsedown->text(file_get_contents(__DIR__ . '/../README.md'));
-    } else {
-        include __DIR__ . '/404.php';
+    $renderer = new \BHayes\BHayes\Renderer();
+    $router = new \BHayes\BHayes\Router();
+    $router->add('GET', '/', new BasicResponse(
+        (new Parsedown())->text(file_get_contents(__DIR__ . '/../README.md'))
+    ));
+
+    //attempt to get a response from the requested route.
+    try {$response = $router->invoke($_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI']);
+        $renderer->render($response);
+    } catch (\BHayes\BHayes\ResponseException $responseException) {
+        $renderer->render($responseException);
+
+        $potentialErrorPage = __DIR__ . "/{$responseException->code()}.php";
+        if (is_file($potentialErrorPage)) {
+            include $potentialErrorPage;
+        }
     }
 
-} catch (\Throwable $exception) {
+} catch (\Throwable $error) {
     include __DIR__ . '/500.php';
 }
 

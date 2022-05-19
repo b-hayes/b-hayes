@@ -11,7 +11,7 @@ interface Response
      * @param string   $body
      * @param string[] $headers int the form of  ['key' => 'value']
      */
-    public function __construct(int $code, string $reason, string $body, array $headers);
+    public function __construct(string $body, int $code, string $reason, array $headers);
 
     public function code(): int;
 

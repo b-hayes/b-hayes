@@ -5,7 +5,7 @@ namespace BHayes\BHayes;
 
 class Renderer
 {
-    public function render(Response $response)
+    public static function render(Response $response)
     {
         header("HTTP/1.0 {$response->code()} {$response->reason()}");
         foreach ($response->headers() as $key => $value) {
