@@ -1,16 +1,15 @@
-### Hi there 👋
+# Hi there 👋
+Decided to turn my github profile repo into a functioning website.
+**Check it out at [h-hayes.com](h-hayes.com)!**
 
-<!--
-**b-hayes/b-hayes** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+It includes simple routing solution I designed in an afternoon and my favorite htaccess setup.
+Content is generated from this MD file using a small library I found called [erusev/parsedown](https://github.com/erusev/parsedown)
 
-Here are some ideas to get you started:
+Its simple yet effective and embodies core principles with Php Development.
+See if you can figure out what those principles are 🤔
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+## What I am currently working.
+This project.
+
+## Other Projects.
+Checkout my awesome [CLI Package](https://github.com/b-hayes/cli) that turns your PHP class into a command line application.
