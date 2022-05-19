@@ -20,10 +20,14 @@ In the past I've not published or shown much of my personal projects to anyone a
 actually publish some web apps and games.
 
 ## What I am currently working.
-This project.
-
+### [This project.](b-hayes.com)
 I am probably going to play around with the routing some more and set this up as a basic template for some
 API + VueJS project ideas to move on to next.
+
+I really want the rendered MD file to be prettier.
+
+Currently, it has dark and light mode detection in css tho try it out by changing your OS colour scheme and the page
+should update accordingly. 😎
 
 ## Other Projects.
 Checkout my awesome [CLI Package](https://github.com/b-hayes/cli) that turns your PHP class into a command line application.
