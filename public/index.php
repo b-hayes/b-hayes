@@ -15,9 +15,12 @@ try {
     ));
 
     //attempt to get a response from the requested route.
-    try {$response = $router->invoke($_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI']);
+    try {
+        $response = $router->invoke($_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI']);
         $renderer->render($response);
+
     } catch (\BHayes\BHayes\ResponseException $responseException) {
+
         $renderer->render($responseException);
 
         $potentialErrorPage = __DIR__ . "/{$responseException->code()}.php";
