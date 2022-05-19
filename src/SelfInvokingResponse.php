@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace BHayes\BHayes;
 
-class BasicResponse implements Response, Invoker
+class SelfInvokingResponse implements Response, Invoker
 {
     private int $code;
     private string $reason;

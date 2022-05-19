@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use BHayes\BHayes\BasicResponse;
+use BHayes\BHayes\SelfInvokingResponse;
 
 try {
     chdir(__DIR__);//ensure a consistent working dir just in case.
@@ -10,13 +10,13 @@ try {
 
     $renderer = new \BHayes\BHayes\Renderer();
     $router = new \BHayes\BHayes\Router();
-    $router->add('GET', '/', new BasicResponse(
+    $router->add('GET', '/', new SelfInvokingResponse(
         (new Parsedown())->text(file_get_contents(__DIR__ . '/../README.md'))
     ));
 
-    //attempt to get a response from the requested route.
+    //Get && render a response from the requested route.
     try {
-        $response = $router->invoke($_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI']);
+        $response = $router->invoke($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);
         $renderer->render($response);
 
     } catch (\BHayes\BHayes\ResponseException $responseException) {
