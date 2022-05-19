@@ -35,7 +35,7 @@ try {
 } catch (\Throwable $error) {
     include __DIR__ . '/500.php';
     //show info for local dev.
-    if (substr($_SERVER['HTTP_HOST'], -9) === 'localhost') {
+    if (str_ends_with($_SERVER['HTTP_HOST'], 'localhost')) {
         echo "<pre style='position: absolute; left: 10px; top: 100vh;'>";
         var_export([
             'Error' => $error->getMessage(),
