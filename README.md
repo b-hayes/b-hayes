@@ -5,8 +5,7 @@ Decided to turn my [Github profile](https://github.com/b-hayes/b-hayes) repo int
 It includes simple routing solution I designed in an afternoon and my favorite htaccess setup.
 Content is generated from this MD file using a small library I found called [erusev/parsedown](https://github.com/erusev/parsedown)
 
-Its simple yet effective and embodies core principles with Php Development.
-See if you can figure out what those principles are 🤔
+Its simple yet effective and embodies some of my [core principles](public/articles/BOPs.md).
 
 ## Where is this going?
 Mainly just providing some info and links to my hobby projects I do for fun and show of some basic concepts in code.
