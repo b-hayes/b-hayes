@@ -3,20 +3,25 @@ Decided to turn my [Github profile](https://github.com/b-hayes/b-hayes) repo int
 **Check it out @ [h-hayes.com](h-hayes.com)!**
 
 It includes simple routing solution I designed in an afternoon and my favorite htaccess setup.
+
 Content is generated from this MD file using a small library I found called [erusev/parsedown](https://github.com/erusev/parsedown)
+that turns markdown into html.
+
+There is some nifty css that changes the page into dark mode with your operating system 😎
 
 Its simple yet effective and embodies some of my [core principles](public/articles/BOPs.md).
 
 ## Where is this going?
-Mainly just providing some info and links to my hobby projects I do for fun and show of some basic concepts in code.
+Mainly just providing some info and links to my hobby projects.
+Perhaps some concepts, templates and experimental/prototype example code that have no
+real purpose other than for the fun of writing code.
 
-Content will probably all be generated from MD files with some basic CSS to petty it up.
-
-Backend might fill out a lot more as I do love building custom PHP from scratch and perhaps
-this might become a base template for future projects.
+I love writing code and never stop doing it.
 
 In the past I've not published or shown much of my personal projects to anyone and figured I need to share more and
 actually publish some web apps and games.
+
+I might come up with some more blogs to fill out the site a bit.
 
 ## What I am currently working.
 ### [This project.](b-hayes.com)
