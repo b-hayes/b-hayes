@@ -1,6 +1,8 @@
 # BOP: Brads Overriding Principles.
 Or "Basic" Overriding principle if the term catches on 😆
 
+**These views are my own and do not necessarily reflect the views of the companies I work for.**
+
 ## Top Level Error Handlers.
 No matter what language you're using ALL errors should be captured
 and clearly noticeable by developers. **No excuses!**
