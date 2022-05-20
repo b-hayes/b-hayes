@@ -2,34 +2,45 @@
 Decided to turn my [Github profile](https://github.com/b-hayes/b-hayes) repo into a functioning website.
 **Check it out @ [h-hayes.com](h-hayes.com)!**
 
-It includes simple routing solution I designed in an afternoon and my favorite htaccess setup.
-Content is generated from this MD file using a small library I found called [erusev/parsedown](https://github.com/erusev/parsedown)
+It includes a simple routing solution I designed in an afternoon and my favourite htaccess setup.
 
-Its simple yet effective and embodies core principles with Php Development.
-See if you can figure out what those principles are 🤔
+Content is generated from my Github README.md file using a small library I found called [erusev/parsedown](https://github.com/erusev/parsedown)
+that turns markdown into HTML.
+
+There is also some nifty CSS to sync with your operating system's dark mode 😎
+
+It is simple yet effective and embodies some of my [core principles](/articles/BOPs.md).
 
 ## Where is this going?
-Mainly just providing some info and links to my hobby projects I do for fun and show of some basic concepts in code.
+Mainly just providing some info and links to my hobby projects.
 
-Content will probably all be generated from MD files with some basic CSS to petty it up.
+I will put some thoughts down into other MD files to link to from here so this site has more pages to generate.
 
-Backend might fill out a lot more as I do love building custom PHP from scratch and perhaps
-this might become a base template for future projects.
+Experimental ideas approaching common solutions
+will likely appear in the backend since I love building
+things from scratch in PHP.
 
-In the past I've not published or shown much of my personal projects to anyone and figured I need to share more and
-actually publish some web apps and games.
+Templates, prototypes and other example code that may
+have no real purpose other than for the fun of writing code.
 
-## What I am currently working.
+I love writing code and never stop doing it.
+
+In the past, I have not published or shown much of my projects to anyone and figured I need to share and be more open.
+
+This might even encourage me to publish some of them for people to use.
+
+## What I am currently working on.
+I have a bunch of crazy ideas and not much time to work on them so right now it's just...
+
 ### [This project.](b-hayes.com)
-I am probably going to play around with the routing some more and set this up as a basic template for some
-API + VueJS project ideas to move on to next.
+I need the rendered content to be prettier to look at.
+Currently, it has dark and light mode detection and that's it.
+I'm going to use this to learn some front end concepts along the way.
 
-I really want the rendered MD file to be prettier.
-
-Currently, it has dark and light mode detection in css tho try it out by changing your OS colour scheme and the page
-should update accordingly. 😎
+The router is probably going to change a few times while I experiment with different ideas.
 
 ## Other Projects.
-Checkout my awesome [CLI Package](https://github.com/b-hayes/cli) that turns your PHP class into a command line application.
+Check out my awesome [CLI Package](https://github.com/b-hayes/cli) that turns your PHP class into a command-line application.
 
-I'll list some more if I get time to put my old stuff online somewhere.
+I'll list some more if I get time to put my older stuff online somewhere,
+or I may just build new things instead 😁
