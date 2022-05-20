@@ -16,6 +16,10 @@ try {
     $router->add('GET', '/', new SelfInvokingResponse(
         (new Parsedown())->text(file_get_contents(__DIR__ . '/../README.md'))
     ));
+    //for now lets just make the article link work
+    $router->add('GET', '/', new SelfInvokingResponse(
+        (new Parsedown())->text(file_get_contents(__DIR__ . '/../README.md'))
+    ));
 
     //Get && render a response from the requested route.
     try {

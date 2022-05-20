@@ -9,7 +9,7 @@ that turns markdown into html.
 
 There is some nifty css that changes the page into dark mode with your operating system 😎
 
-Its simple yet effective and embodies some of my [core principles](public/articles/BOPs.md).
+Its simple yet effective and embodies some of my [core principles](/articles/BOPs.md).
 
 ## Where is this going?
 Mainly just providing some info and links to my hobby projects.
