@@ -2,21 +2,18 @@
 Or "Basic" Overriding principle if the term catches on 😆
 
 ## Top Level Error Handlers.
-No matter what language you're using you Need top level error handlers.
+No matter what language you're using ALL errors should be captured
+and clearly noticeable by developers. **No excuses!**
 
-All errors should be captured and clearly noticeable by developers. **No excuses!**
+All errors are catchable all it's often nowhere near as complicated as people seem to believe.
 
-I wrote an extensive article on this for PHP some time ago. _Link to come later._ Because it seemed people still
-operated with a php5 mindset.
+I wrote an extensive article on this for PHP. _Link to come later._ to help those still living in the php5 mindset.
 
-All errors are catchable all the time, in any language,
-and it's often nowhere near as complicated as people seem to believe. 
-
-## Errors should provide meaningful feedback.
+## Errors are responses.
 I am mainly talking about validation or business logic and UX here however,
 this also extends internal errors and DX (developer experience).
 
-The point is user should never ever see broken web pages because javascript was expecting some
+The main point is user should never ever see broken web pages because javascript was expecting some
 missing data in a response. Or some blank nothing pages due to some internal error in Php.
 
 Nor should they see some meaningless error code that requires searching and clicking through an
