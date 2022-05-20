@@ -5,10 +5,10 @@ namespace BHayes\BHayes\Router;
 
 class SelfInvokingResponse implements Response, Invoker
 {
-    private int $code;
-    private string $reason;
-    private string $body;
-    private array $headers;
+    protected int $code;
+    protected string $reason;
+    protected string $body;
+    protected array $headers;
 
     public function __construct(string $body, int $code = 200, string $reason = 'OK', array $headers = [])
     {

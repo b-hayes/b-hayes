@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use BHayes\BHayes\Responses\MdToHtml;
 use BHayes\BHayes\Router\Renderer;
 use BHayes\BHayes\Router\ResponseException;
 use BHayes\BHayes\Router\Router;
@@ -16,6 +17,7 @@ try {
     $router->add('GET', '/', new SelfInvokingResponse(
         (new Parsedown())->text(file_get_contents(__DIR__ . '/../README.md'))
     ));
+    $router->add('GET', '/articles/{fileName}', new MdToHtml());
 
     //Get && render a response from the requested route.
     try {

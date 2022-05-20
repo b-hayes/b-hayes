@@ -5,14 +5,6 @@ namespace BHayes\BHayes\Router;
 
 interface Response
 {
-    /**
-     * @param int      $code
-     * @param string   $reason
-     * @param string   $body
-     * @param string[] $headers int the form of  ['key' => 'value']
-     */
-    public function __construct(string $body, int $code, string $reason, array $headers);
-
     public function code(): int;
 
     public function reason(): string;
