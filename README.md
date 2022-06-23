@@ -32,7 +32,7 @@ This might even encourage me to publish some of them for people to use.
 ## What I am currently working on.
 I have a bunch of crazy ideas and not much time to work on them so right now it's just...
 
-### [This project.](b-hayes.com)
+### [This project.](https://b-hayes.com)
 I need the rendered content to be prettier to look at.
 Currently, it has dark and light mode detection and that's it.
 I'm going to use this to learn some front end concepts along the way.
