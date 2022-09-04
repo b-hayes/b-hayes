@@ -2,7 +2,7 @@
 layout: post
 title:  "Exception & Error handling in PHP"
 date:   2021-04-13 10:00:00 -0500
-categories: php code exceptions error-handling domain driven design ddd
+categories: php code exceptions error handling domain driven design ddd
 authors: [bradleyhayes]
 ---
 
@@ -29,26 +29,26 @@ If you are pressed for time just remember these 3 core principles and practice t
 # The long version.
 Before explaining these core principles let me show you what triggers m.. er motivates me to write this. 😅
 
-In my experience I have seen a lot of complex Exception juggling, catching converting, re-throwing, layer upon layer of try-catches, every class trying to prevent errors escaping and resulting in problems such as:
+In my experience I have seen a lot of complex Exception juggling, catching converting, re-throwing, layer upon layer of try-catches, every class trying to prevent errors from escaping and resulting in problems such as:
 
-- Too many try-catch layers duplicating code and creating confusion.
+- Too many try-catch layers duplicate code, confusion.
 - Using dependencies in catch blocks that break causing a new unhandled error.
 - Using global namespace exceptions for client messages or input validation.
 - Catching and converting exceptions without appending the original one hiding the source of the problem.
 - Loggers injected in classes all over the place logging problems independently with inconsistent behaviour.
 - Errors with no logs at all.
-- Copy paste mentality spreading common mistakes.
+- Copy-paste mentality spreading common mistakes.
 - 200 ok response for fatal errors.
 
 ![200 OK response for fatal errors.](img/200-OK-response-for-fatal-errors.jpg)
 
 In production, you won't see this sensitive information because your DevOps team or service providers will disable error reporting. However, developers also won't see it either (Well not where you expect if you have a custom logger). Web projects may produce a blank nothing 😶, and API projects will confuse their consumers making them interpret it as a successful operation. 🤦‍♂️
 
-This is one of many less than ideal situations you might have encountered.
+This is one of many less-than-ideal situations you might have encountered.
 
 Some are low risk or "shouldn't ever happen" but WHEN it does it will needlessly create time-consuming debug sessions where the problem was made unnecessarily harder to track.
 
-With issues like this waiting to strike we may overcompensate putting try-catch blocks all over the place while repeating the same mistake as handlers above.
+With issues like this waiting to strike we may overcompensate by putting try-catch blocks all over the place while repeating the same mistake as the handlers above.
 
 Fear not! Here is the missing piece 🧩.
 
@@ -93,7 +93,7 @@ You can add more catch blocks and rely on 🤵🏼‍♂️Alfred to handle all 
 ...
     $app->run();
 } catch (MoreSpecificException $e) {
-    //more specific response for common situation.
+    //more specific response for common situations.
 } catch (\Throwa...
 ```
 So 🦇Batman(that's you) can go off into the night while 🤵🏼‍♂️Alfred keeps your secrets and responds appropriately to the public on your behalf 👍.
@@ -145,7 +145,7 @@ Common situations turned into appropriate responses via custom exceptions.
 If your situation doesn't quite fit, create a new exception type and map it to the appropriate response in the handler.
 
 ## Exceptions types.
-At Tithe.ly we practice many [Domain Driven Design](https://leanpub.com/ddd-in-php/read) principles (DDD). However you can apply the same principles anywhere such as [command-line applications](https://packagist.org/packages/b-hayes/cli) 😉.
+At Tithe.ly we practice many [Domain Driven Design](https://leanpub.com/ddd-in-php/read) principles (DDD). However, you can apply the same principles anywhere such as [command-line applications](https://packagist.org/packages/b-hayes/cli) 😉.
 
 Here are my recommendations for custom exception implementations in DDD, and some added points on using the global ones.
 
@@ -156,10 +156,10 @@ I also recommend you override the `__contruct` but only to indicate to your devs
 
 ![Dev hints are awesome](img/domain-exception-hints.jpg)
 
-Think about it, Domain errors are always a violation of a business rule, the clients fault, and are often what you want to show the client.
+Think about it, Domain errors are always a violation of a business rule, a client-side mistake, and are often what you want to show the client.
 
-You don't need to obscure things with snake_case_message_codes to be caught and converted into a human-readable messages higher up.
-Exception messages can just be human-readable messages you want the client to read directly, coming directly from the domain layer that knows whats it's talking about.
+You don't need to obscure things with snake_case_message_codes to be caught and converted into human-readable messages higher up.
+The Exceptions can just be human-readable messages you want the client to read directly, coming directly from the domain layer that knows what it's talking about.
 
 A good starting point for API's is to tell 🤵🏼‍♂️Alfred that any DomainException is a 400 `bad_request` with getMessage() handed directly to the client.
 ```php
@@ -181,7 +181,7 @@ You will want to extend ApplicationException for granular response control eg.
 
 You get the idea.
 
-I did this from scratch in a project a last year and DDD became more useful, and the code was much cleaner.
+Doing this from scratch makes DDD a lot more useful, and makes the code much cleaner and easier to manage.
 
 ### ResourceExceptions
 This would be used very sparingly within your REST API resources/controllers only.
@@ -189,9 +189,9 @@ This would be used very sparingly within your REST API resources/controllers onl
 They can be used to throw any response you see fit with 🤵🏼‍♂️Alfred using the error codes as response code.
 ```php
 catch (\project\Controllers\ResourceException $r) {
-	http_response_code($r->getCode());
-	//set other headers based on code...
-	//use getMessage() in response body... etc etc.
+   http_response_code($r->getCode());
+   //set other headers based on code...
+   //use getMessage() in response body... etc etc.
 }
 ```
 (we have a common setup for this in Tithe.ly but if we didn't already have one I'd suggest this.)
@@ -227,7 +227,7 @@ DomainException has no ties so make its messages client-friendly and let em fly 
 ## QOL for developers.
 🤵🏼‍♂️Alfred isn't there when you're building components in the bat cave, which is great.
 
-Error handling, logging and all of this junk are now absent during Unit-tests because is all done in the entry point only used for production.
+Error handling, logging and all of this junk are now absent during Unit-tests because its all done in the entry point only used for production.
 
 So we simply see errors and fix them. Nice.
 
@@ -238,7 +238,7 @@ Now that we have 🤵🏼‍♂️Alfred we can tell him to drop the formalities
 } catch (\Throwable $e) {
     $response = [...
     ...
-    //some condition only local dev machines will have, or have to setup.
+    //some conditions only local dev machines will have, or have to set up.
     if (getenv('LOCAL_DEV' === 'yes its just us')) {
         $response['message'] = $e->getMessage();
     }
