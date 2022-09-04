@@ -1,10 +1,4 @@
----
-layout: post
-title:  "Exception & Error handling in PHP"
-date:   2021-04-13 10:00:00 -0500
-categories: php code exceptions error handling domain driven design ddd
-authors: [bradleyhayes]
----
+# Error and Exception handling in PHP
 
 Exception and Error handling is probably a lot easier than you think.
 
