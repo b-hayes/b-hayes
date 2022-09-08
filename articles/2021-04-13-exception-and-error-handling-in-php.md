@@ -16,8 +16,9 @@ I've distilled it all down to 3 core principles.
 
 If you are pressed for time just remember these 3 core principles and practice them in any new code you write.
 
-### Optional 4th rule.
-- Upgrade notices and warnings to catchable errors. (in dev env).
+### Optional 4th and 5th rules.
+- Upgrade notices and warnings to catchable errors. (in dev env, production won't need this).
+- Register a shutdown function (many would disagree the need for this).
   We will cover this much further down in...
 
 # The long version.
@@ -286,6 +287,23 @@ set_error_handler(function ($severity, $message, $file, $line) {
 ```
 Instead of seeing a fatal side effect, you just see the notice/warning as an error instead.
 Nice!
+
+## Optional 5th rule => Register a shutdown function.
+What if PHP itself crashes due to a fatal error. Hoe can it execute your try catch if the php process is no lonver running?
+// TODO : fix this section up.
+```php
+function fatality()
+{
+    $error = error_get_last();
+
+    if ($error && $error['type'] === E_ERROR)
+    {  
+        //log the error without any dependencies that could break.
+    }
+}
+
+register_shutdown_function('fatality');
+```
 
 # Edge cases.
 Let's cover some additional situations that might pop up.
