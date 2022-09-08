@@ -289,7 +289,7 @@ Instead of seeing a fatal side effect, you just see the notice/warning as an err
 Nice!
 
 ## Optional 5th rule => Register a shutdown function.
-What if PHP itself crashes due to a fatal error. Hoe can it execute your try catch if the php process is no lonver running?
+What if PHP itself crashes due to a fatal error. Hoe can it execute your try catch if the php process is no longer running?
 // TODO : fix this section up.
 ```php
 function fatality()
