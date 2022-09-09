@@ -4,8 +4,52 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "350524cc348b8f03f13170855c151b95",
+    "content-hash": "1fda0bac3da00a44f9f015efebe9029d",
     "packages": [
+        {
+            "name": "b-hayes/json",
+            "version": "v0.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/b-hayes/json.git",
+                "reference": "1640e624df9b58b327ffda6a92479ec45953a59b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/b-hayes/json/zipball/1640e624df9b58b327ffda6a92479ec45953a59b",
+                "reference": "1640e624df9b58b327ffda6a92479ec45953a59b",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": ">7.4.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "BHayes\\Json\\": "php"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "b-hayes",
+                    "email": "bradozman@gmail.com"
+                }
+            ],
+            "description": "Runs any PHP Class as a command line application",
+            "support": {
+                "issues": "https://github.com/b-hayes/json/issues",
+                "source": "https://github.com/b-hayes/json/tree/v0.0.2"
+            },
+            "time": "2022-09-05T14:03:57+00:00"
+        },
         {
             "name": "erusev/parsedown",
             "version": "1.7.4",
@@ -67,5 +111,8 @@
         "php": "^8.1"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.2.0"
+    "platform-overrides": {
+        "php": "8.1"
+    },
+    "plugin-api-version": "2.3.0"
 }

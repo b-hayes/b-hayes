@@ -13,7 +13,7 @@ try {
     require_once __DIR__ . '/../vendor/autoload.php';
 
     $renderer = new Renderer();
-    $router = new Router();
+    $router = new Router('BHayes\BHayes\Controllers');
     $router->add('GET', '/', new SelfInvokingResponse(
         (new Parsedown())->text(file_get_contents(__DIR__ . '/../README.md'))
     ));

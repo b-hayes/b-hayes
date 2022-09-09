@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace BHayes\BHayes\Router;
 
-class SelfInvokingResponse implements Response, Invoker
+class SelfInvokingResponse implements Response, ControllerInterface
 {
     protected int $code;
     protected string $reason;
