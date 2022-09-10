@@ -12,17 +12,18 @@ I wrote an extensive article on this for PHP. _Link to come later._
 
 
 ## Errors are responses.
-I am mainly talking about validation or business logic and UX here however,
-this also extends internal errors and DX (developer experience).
+I am mainly talking about validation or business logic or anything the user can correct.
+If some input is wrong just throw an exception with the User message instead of trying to pass
+the message all the way up the stack.
 
-The main point is user should never ever see broken web pages because javascript was expecting some
-missing data in a response. Or some blank nothing pages due to some internal error in PHP.
+The main point is user should never ever see broken interface because of some missing data or badly
+formatted response.
 
 Nor should they see some meaningless error code that requires searching and clicking through an
 endless cycle of links just to read some simple message that could have been displayed in the UI.
 **I'm looking at YOU Microsoft! 👀**
 
-Feedback can be of a technical nature if a developer is the user.
+Feedback can be of a technical nature if your user is bound to be a developer or a power user.
 Eg. All shell scripts I build are for developers, so I actually show a stack trace.
 
 ## Developers are just as important as Users.
@@ -30,9 +31,9 @@ Continuing on from above. Meaningful errors and stack traces should always be ac
 
 Never catch an error/exception just to throw a new one without including the source of the problem.
 
-I normally don't agree with catch and re-throw behaviour, but it is needed sometimes.
-In PHP this is as simple as shoving the previous exception in the new one you have created and other languages will
-also have ways to pass information along with your re-thrown errors for you custom handlers etc.
+I normally don't agree with catch and re-throw behaviour, but it is needed sometimes and when that's
+the case you should always provide devs access to the original error.
+In PHP this is as simple as shoving the previous exception in the new one.
 
 Detect developer environments and make errors visible where possible.
 For WebApps I conditionally include stack trace in the API response/error page
@@ -46,7 +47,7 @@ Treat your fellow devs as first class citizens and Users will also get the knock
 A core principle I impose on myself whenever I write shell scripts is to start each one similar to this:
 ```shell
 #!/usr/bin/env bash
-source error-handler #this line relates to BOP #1
+source error-handler
 
 if [ -z $1 ];then
 	echo -e "USAGE: `basename $0` <flags...> <operands...>"
@@ -54,5 +55,18 @@ if [ -z $1 ];then
 fi
 ```
 
-Nobody wants to memorize the millions of shell scripts I write for various use cases.
+Nobody wants to memorize the millions of shell scripts I write for various use cases, so I make sure they are
+self-explanatory.
 
+And if they are for developers I always include the stack trace if like so:
+```bash
+# HALT EXECUTION WHEN ANY COMMAND FAILS AND PROVIDE A STACK TRACE.
+#   Full stack trace only works if every script in the execution chain includes this script.
+set -eE
+trap 'catchError $LINENO $COMMAND' ERR
+catchError() {
+  echo -e "TRACE: `basename $0` failed in `readlink -f $0` on line $1"
+  exit $?
+}
+```
+I make this a script on its own and include it from all my others.

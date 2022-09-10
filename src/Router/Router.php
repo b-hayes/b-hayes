@@ -11,14 +11,6 @@ class Router
 {
     const COMPOSER_AUTOLOAD_CONTROLLERS = '{composer-autoload}/Controllers';
     private array $routes = [];
-    private string $controllerNameSpace;
-    private string $appendToClassName;
-
-    public function __construct(string $controllerNameSpace = '', string $appendToClassName = "Controller")
-    {
-        $this->controllerNameSpace = $controllerNameSpace;
-        $this->appendToClassName = $appendToClassName;
-    }
 
     public static function requestContentType()
     {
@@ -35,25 +27,30 @@ class Router
     {
         if ($path === null) $path = self::requestUriPath();
         if ($method === null) $method = $_SERVER['REQUEST_METHOD'];
-        $responseGenerator = $this->routes[$method][$path]
-            ?? $this->resolveComplexRoute($path, $method)
-            ?? throw new RouteException(404);
-
+        //exact match
+        $controller = $this->routes[$method][$path] ?? null;
         $segments = explode('/', $path);
+        array_shift($segments);//always an empty one at the start due to the first '/'
 
-        return $responseGenerator($segments, $_REQUEST);
+        //complex match
+        if (!$controller) {
+            list($controller, $segments) = $this->resolveComplexRoute($segments,$method);
+        }
+
+        return $controller($segments, $_REQUEST);
     }
 
     public function add(string $method, string $path, callable $responseGenerator): void
     {
         assert(str_starts_with($path, '/'), 'Route path should always start with "/"');
-        if ($path === '/' || !str_contains($path, '{')) {
-            //this URI can only be an exact match anyway so let just keep it as is for faster route matching.
+        assert(!str_contains($path, ':'), 'Typed/regex routes not supported.');
+        if (!str_contains($path, '{')) {
+            //no variance in this path so we can avoid iterating routes to match it later.
             $this->routes[$method][$path] = $responseGenerator;
             return;
         }
 
-        //converts the "/uri/path" into an array["uri"]["path"] = $responseGenerator
+        //converts the "/uri/paths" into a tree so that iterating all of is no necessary to match them later.
         $explode =array_filter( explode('/', $path));
         $arrayPath = '["' . implode('"]["', $explode) . '"]';
         $code = "\$this->routes[\$method]$arrayPath = \$responseGenerator;";
@@ -67,8 +64,42 @@ class Router
             ?? $_SERVER['REMOTE_ADDR'];
     }
 
-    private function resolveComplexRoute(string $path, string $method): ControllerInterface
+    /**
+     * @param string $path
+     * @param string $method
+     * @return array{ controller: ControllerInterface, segments: string[] }
+     * @throws RouteException
+     */
+    private function resolveComplexRoute(array $segments, string $method): array
     {
-        throw new RouteException(404);
+        echo "<pre>";
+        $collected = [];
+        $controller = null;
+        $routes = $this->routes[$method] ?? [];
+        foreach ($segments as $seg) {
+            //direct match
+            if (isset($routes[$seg])) {
+                $controller = $routes = $routes[$seg];
+                $collected[] = $seg;
+                //echo "$seg was matched!\n";
+                continue;
+            }
+            //variable match
+            $routes = array_filter($routes, fn($key) => str_contains($key, '{'), ARRAY_FILTER_USE_KEY);
+            if (count($routes) === 1) {
+                $varName = array_key_first($routes);
+                $collected[trim($varName,'{}')] = $seg;
+                $controller = $routes = $routes[$varName];
+                //echo "$seg was matched with $varName!\n";
+                continue;
+            } elseif(count($routes) > 1) {
+                throw new \Exception("'$seg' matches more than one route: " . json_encode($routes));
+            }
+            //echo "no match for $seg. Stopped looking.\n";
+            throw new RouteException(404);
+        }
+        if (!$controller instanceof ControllerInterface) throw new RouteException(404);
+
+        return [$controller, $collected];
     }
 }
