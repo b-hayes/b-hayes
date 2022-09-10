@@ -27,7 +27,7 @@ class ArticlesController implements ControllerInterface
         if (!$filename) {
             $filename = realpath($this->defaultFile);
         } else {
-            $filename = realpath($this->basePath . '/' . $filename . '.md');
+            $filename = realpath($this->basePath . '/' . $filename);
         }
         //no file then it's a 404.
         if (!$filename) throw new RouteException(404);
