@@ -3,30 +3,36 @@ declare(strict_types=1);
 
 namespace BHayes\BHayes\Controllers;
 
-use BHayes\BHayes\Router\Invoker;
+use BHayes\BHayes\Responses\BasicResponse;
+use BHayes\BHayes\Router\ControllerInterface;
 use BHayes\BHayes\Router\Response;
 use BHayes\BHayes\Router\RouteException;
-use BHayes\BHayes\Router\CallableResponse;
 use Parsedown;
 
-class ArticlesController
+class ArticlesController implements ControllerInterface
 {
-    private array $pathSegments;
-    private array $requestData;
+    private string $basePath;
+    private string $defaultFile;
 
-    public function __invoke(array $pathSegments, array $requestData)
+    public function __construct(string $folder = '../articles', string $defaultFile = '../README.md')
     {
-        $this->pathSegments = $pathSegments;
-        $this->requestData = $requestData;
+        $this->basePath = $folder;
+        $this->defaultFile = $defaultFile;
     }
 
-    public function get(string $article): Response
-    {
-        $fileName = "articles/$article";
-        if (!is_file($fileName)) throw new RouteException(404);
 
-        return new CallableResponse(
-            (new Parsedown())->text(file_get_contents($fileName))
-        );
+    public function __invoke(array $pathSegments, array $data): Response
+    {
+        $filename = $pathSegments['fileName'] ?? null;
+        if (!$filename) {
+            $filename = realpath($this->defaultFile);
+        } else {
+            $filename = realpath($this->basePath . '/' . $filename);
+        }
+        //no file then it's a 404.
+        if (!$filename) throw new RouteException(404);
+
+        $md = (new Parsedown())->text(file_get_contents($filename));
+        return new BasicResponse($md);
     }
 }

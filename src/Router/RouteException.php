@@ -1,11 +1,10 @@
 <?php
+
 declare(strict_types=1);
 
 namespace BHayes\BHayes\Router;
 
-use Throwable;
-
-class RouteException extends \Exception
+class RouteException extends \Exception implements Response
 {
     public const HTTP_STATUS = [
         100 => 'Continue',
@@ -50,14 +49,23 @@ class RouteException extends \Exception
         505 => 'HTTP Version not supported'
     ];
 
-    /**
-     * @param int            $httpStatusCode
-     *Must be an HTTP status code: 404 or 405 etc.
-     * @param Throwable|null $previous
-     */
-    public function __construct(int $httpStatusCode, Throwable $previous = null)
+    public function __construct(int $httpResponseCode = 404, string $message = null, ? \Throwable $previous = null)
     {
-        $message = self::HTTP_STATUS[$httpStatusCode];
-        parent::__construct($message, $httpStatusCode, $previous);
+        parent::__construct($reason ?? self::HTTP_STATUS[$httpResponseCode], $httpResponseCode, $previous);
+    }
+
+    public function code(): int
+    {
+        return $this->getCode();
+    }
+
+    public function body(): string
+    {
+        return '';
+    }
+
+    public function headers(): array
+    {
+        return [];
     }
 }
