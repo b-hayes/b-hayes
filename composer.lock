@@ -4,25 +4,25 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1fda0bac3da00a44f9f015efebe9029d",
+    "content-hash": "5be7ca65034320a52d8e26194853f8a1",
     "packages": [
         {
             "name": "b-hayes/json",
-            "version": "v0.0.2",
+            "version": "v0.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/b-hayes/json.git",
-                "reference": "1640e624df9b58b327ffda6a92479ec45953a59b"
+                "reference": "0d4789e0e712c56d80c20c3a11a5ab5ade8fad7b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/b-hayes/json/zipball/1640e624df9b58b327ffda6a92479ec45953a59b",
-                "reference": "1640e624df9b58b327ffda6a92479ec45953a59b",
+                "url": "https://api.github.com/repos/b-hayes/json/zipball/0d4789e0e712c56d80c20c3a11a5ab5ade8fad7b",
+                "reference": "0d4789e0e712c56d80c20c3a11a5ab5ade8fad7b",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
-                "php": ">7.4.3"
+                "php": ">=7.4.3"
             },
             "require-dev": {
                 "phpunit/phpunit": "^9.5"
@@ -30,7 +30,8 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "BHayes\\Json\\": "php"
+                    "BHayes\\Json\\": "php",
+                    "BHayes\\Test\\": "test"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -46,9 +47,9 @@
             "description": "Runs any PHP Class as a command line application",
             "support": {
                 "issues": "https://github.com/b-hayes/json/issues",
-                "source": "https://github.com/b-hayes/json/tree/v0.0.2"
+                "source": "https://github.com/b-hayes/json/tree/v0.1.1"
             },
-            "time": "2022-09-05T14:03:57+00:00"
+            "time": "2022-09-09T14:31:38+00:00"
         },
         {
             "name": "erusev/parsedown",
