@@ -1,5 +1,9 @@
 <?php
 http_response_code(500);
+if ($_SERVER['REQUEST_METHOD'] !== 'GET' || $_SERVER['HTTP_ACCEPT'] === 'application/json') {
+    echo json_encode(['error' => 'internal server error']);
+    return;
+}
 ?>
 <div class="middle" style="width: 100%;text-align: center;">
     <p style="font-size: xxx-large"><?=http_response_code()?></p>

@@ -5,9 +5,11 @@ namespace BHayes\BHayes\Router;
 
 interface Response
 {
-    public function code(): int;
+    const OK = 200;
+    const NOT_FOUND = 404;
+    //todo: add more response codes.
 
-    public function reason(): string;
+    public function code(): int;
 
     public function body(): string;
 

@@ -3,16 +3,16 @@ declare(strict_types=1);
 
 namespace BHayes\BHayes\Router;
 
-class SelfInvokingResponse implements Response, ControllerInterface
+class BasicResponse implements Response
 {
     protected int $code;
     protected string $reason;
     protected string $body;
     protected array $headers;
 
-    public function __construct(string $body, int $code = 200, string $reason = 'OK', array $headers = [])
+    public function __construct(string $body, int $httpResponseCode = 200, string $reason = 'OK', array $headers = [])
     {
-        $this->code = $code;
+        $this->code = $httpResponseCode;
         $this->reason = $reason;
         $this->body = $body;
         $this->headers = $headers;
@@ -36,10 +36,5 @@ class SelfInvokingResponse implements Response, ControllerInterface
     public function headers(): array
     {
         return $this->headers;
-    }
-
-    public function __invoke(array $pathSegments, array $data): Response
-    {
-        return $this;
     }
 }
