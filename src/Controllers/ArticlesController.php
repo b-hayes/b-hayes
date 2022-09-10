@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace BHayes\BHayes\Controllers;
 
-use BHayes\BHayes\Responses\MdToHtml;
-use BHayes\BHayes\Router\BasicResponse;
+use BHayes\BHayes\Responses\BasicResponse;
 use BHayes\BHayes\Router\ControllerInterface;
 use BHayes\BHayes\Router\Response;
 use BHayes\BHayes\Router\RouteException;
@@ -34,6 +33,7 @@ class ArticlesController implements ControllerInterface
         //no file then it's a 404.
         if (!$filename) throw new RouteException(404);
 
-        return new MdToHtml($filename);
+        $md = (new Parsedown())->text(file_get_contents($filename));
+        return new BasicResponse($md);
     }
 }

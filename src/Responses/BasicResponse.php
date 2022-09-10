@@ -1,7 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace BHayes\BHayes\Router;
+namespace BHayes\BHayes\Responses;
+
+use BHayes\BHayes\Router\Response;
 
 class BasicResponse implements Response
 {

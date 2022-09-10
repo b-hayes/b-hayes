@@ -3,16 +3,12 @@ declare(strict_types=1);
 
 namespace BHayes\BHayes\Router;
 
-use BHayes\Json\ComposerJson;
-use phpDocumentor\Reflection\Types\True_;
-use function PHPUnit\Framework\throwException;
-
 class Router
 {
     const COMPOSER_AUTOLOAD_CONTROLLERS = '{composer-autoload}/Controllers';
     private array $routes = [];
 
-    public static function requestContentType()
+    public static function requestContentType(): string
     {
         return $_SERVER['HTTP_ACCEPT'];
     }
@@ -65,7 +61,7 @@ class Router
     }
 
     /**
-     * @param string $path
+     * @param array $segments
      * @param string $method
      * @return array{ controller: ControllerInterface, segments: string[] }
      * @throws RouteException

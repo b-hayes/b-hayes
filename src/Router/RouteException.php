@@ -13,7 +13,6 @@ class RouteException extends \Exception implements Response
 
     public function __construct(int $httpResponseCode = 404, string $reason = 'Not Found', ? \Throwable $previous = null)
     {
-        $reason = $reason ?? Router::httpStatusFromCode($httpResponseCode);
         parent::__construct($reason, $httpResponseCode, $previous);
         $this->httpResponseCode = $httpResponseCode;
         $this->reason = $reason;

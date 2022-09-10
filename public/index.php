@@ -2,12 +2,9 @@
 
 declare(strict_types=1);
 
-use BHayes\BHayes\Responses\MdToHtml;
 use BHayes\BHayes\Router\Renderer;
-use BHayes\BHayes\Router\ResponseException;
 use BHayes\BHayes\Router\RouteException;
 use BHayes\BHayes\Router\Router;
-use BHayes\BHayes\Router\BasicResponse;
 
 try {
     chdir(__DIR__);//ensure a consistent working dir just in case.
