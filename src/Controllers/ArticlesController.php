@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 namespace BHayes\BHayes\Controllers;
@@ -15,7 +14,7 @@ class ArticlesController implements ControllerInterface
     private string $basePath;
     private string $defaultFile;
 
-    public function __construct(string $folder = 'articles', string $defaultFile = '../README.md')
+    public function __construct(string $folder = '../articles', string $defaultFile = '../README.md')
     {
         $this->basePath = $folder;
         $this->defaultFile = $defaultFile;

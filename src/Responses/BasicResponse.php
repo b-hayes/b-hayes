@@ -30,13 +30,13 @@ class BasicResponse implements Response
         return $this->reason;
     }
 
-    public function body(): string
-    {
-        return $this->body;
-    }
-
     public function headers(): array
     {
         return $this->headers;
+    }
+
+    public function body(): string
+    {
+        return $this->body;
     }
 }

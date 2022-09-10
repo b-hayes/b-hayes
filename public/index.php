@@ -2,12 +2,14 @@
 
 declare(strict_types=1);
 
+use BHayes\BHayes\Controllers\ArticlesController;
 use BHayes\BHayes\Router\Renderer;
 use BHayes\BHayes\Router\RouteException;
 use BHayes\BHayes\Router\Router;
 
 try {
-    chdir(__DIR__);//ensure a consistent working dir just in case.
+    //ensure a consistent working directory in-case funky things happen with htaccess rules.
+    chdir(__DIR__);
     require_once __DIR__ . '/../vendor/autoload.php';
 
     $renderer = new Renderer();
@@ -22,6 +24,7 @@ try {
         $potentialErrorPage = __DIR__ . "/{$exception->code()}.php";
         if (is_file($potentialErrorPage)) {
             include $potentialErrorPage;
+
         }
         //show info for local dev.
         if (str_ends_with($_SERVER['HTTP_HOST'], 'localhost')) {
@@ -38,15 +41,19 @@ try {
 
 } catch (\Throwable $error) {
     include __DIR__ . '/500.php';
+    $errorInfo = [
+        'Error' => $error->getMessage(),
+        ' file' => $error->getFile(),
+        ' line' => $error->getLine(),
+        'trace' => $error->getTrace()
+    ];
+
+    error_log(json_encode($errorInfo));
+
     //show info for local dev.
     if (str_ends_with($_SERVER['HTTP_HOST'], 'localhost')) {
         echo "<pre style='position: absolute; left: 10px; top: 100vh;'>";
-        var_export([
-            'Error' => $error->getMessage(),
-            ' file' => $error->getFile(),
-            ' line' => $error->getLine(),
-            'trace' => $error->getTrace()
-        ]);
+        var_export($errorInfo);
         echo "</pre>";
     }
 }

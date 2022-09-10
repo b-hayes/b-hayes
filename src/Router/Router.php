@@ -5,7 +5,6 @@ namespace BHayes\BHayes\Router;
 
 class Router
 {
-    const COMPOSER_AUTOLOAD_CONTROLLERS = '{composer-autoload}/Controllers';
     private array $routes = [];
 
     public static function requestContentType(): string
