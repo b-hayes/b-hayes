@@ -49,6 +49,6 @@ class Router
         $translated = $this->controllerNameSpace . '\\' . str_replace('/', '\\', $path);
         if (class_exists($translated)) return new $translated();
 
-        throw new RoutException("$path not found", 404);
+        throw new RouteException("$path not found", 404);
     }
 }
