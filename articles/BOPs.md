@@ -8,8 +8,7 @@ No matter what language you're using ALL errors should be captured
 and clearly noticeable by developers. **No excuses.**
 
 It's often nowhere near as complicated as people seem to believe.
-I wrote an extensive article on this for PHP.
-[Exception an Error Handling in PHP](/articles/2021-04-13-exception-and-error-handling-in-php.md)
+I wrote an extensive article on this for PHP. _Link to come later._
 
 
 ## Errors are responses.
