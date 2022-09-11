@@ -31,9 +31,10 @@ In my experience I have seen a lot of complex Exception juggling, catching conve
 - Using global namespace exceptions for client messages or input validation.
 - Catching and converting exceptions without appending the original one hiding the source of the problem.
 - Loggers injected in classes all over the place logging problems independently with inconsistent behaviour.
+- Handling errors with complex Custom/3rd party loggers can also error, hiding the original cause or...
 - Errors with no logs at all.
 - Copy-paste mentality spreading common mistakes.
-- 200 ok response for fatal errors.
+- 200 ok response for fatal errors 🤦‍. ️
 
 ![200 OK response for fatal errors.](img/200-OK-response-for-fatal-errors.jpg)
 
@@ -64,7 +65,7 @@ Catching and converting exceptions at multiple layers seems to happen a lot, and
 You only need to catch \Throwable in one place at the top level of execution and turn it into a generic 500 response.
 
 Put this where your application handles request routing etc and generates/passes back responses.
-If you don't use a framework or response objects then go all the way up to index.php and wrap everything like so:
+You don't need a framework config, just go all the way up to index.php/entry point for your app and wrap everything like so:
 ```php
 //index.php
 try {
@@ -80,24 +81,31 @@ I guarantee it 👌😉.
 
 All your existing code will still operate as normal, the only difference is you now catch anything that slips past your old nets.
 
-This is the first step. Let us refer to this *handler* as, **🤵🏼‍️Alfred**.
+You no longer need all your other nets you have laying over the top of each other. One net is enough.
+Just add more catch buckets for your *handler* to sort your error 🐟🐠🐡 fish into appropriate responses. 
 
-You can add more catch blocks and rely on 🤵🏼‍️Alfred to handle all the common situations that should end up with the same/similar response.
+This is the first step. Let us refer to this *handler* as, **Alfred**.
+
+# 👋🤵 Alfred
+
+You can add more catch blocks and rely on 🤵️Alfred to handle all the common situations that should end up with the same/similar response.
 
 ```php
 ...
     $app->run();
 } catch (MoreSpecificException $e) {
     //more specific response for common situations.
-} catch (\Throwa...
+} catch (\Throwable...
 ```
-So 🦇Batman(that's you) can go off into the night while 🤵🏼‍️Alfred keeps your secrets and responds appropriately to the public on your behalf 👍.
 
-Now you can stop repeating yourself repeating yourself in all your resources setting up safety nets all over the place. You also avoid one of the copy-paste problems I see where a resource returns the wrong response for an error and this mistake gets repeated in 100's of places because code is replicated and modified for new API end-points.
+So 🦇Batman(that's you) can go off into the night while 🤵Alfred keeps your secrets and responds appropriately to the public on your behalf 👍.
+
+Now you can stop repeating yourself repeating yourself in all your resources or controllers and stop setting up safety nets all over the place.
+You also avoid one of the copy-paste problems I see where a resource returns the wrong response for an error and this mistake gets repeated in 100's of places because code is replicated and modified for new API end-points.
 
 Just catch it once, in one place and return the appropriate response. If something is wrong, fix it once.
 
-🤵🏼‍️Alfred's got your back now so...
+🤵️Alfred's got your back now so...
 
 ## Only catch Exceptions you can handle.
 Our Top-level net catches everything, so there is no need for you to have try-catch blocks all over your codebase.
@@ -134,7 +142,7 @@ This was originally how this exception type should be used in reality, but, then
 
 Some address this by catching them, checking the message and then convert... 🤚🤨. No.
 
-A much better solution is to create custom exceptions and just throw a human-readable message in the first place. Then we just tell 🤵🏼‍️Alfred that any messages in these special CustomExceptionsForClient envelopes can be directly handed to our clients.
+A much better solution is to create custom exceptions and just throw a human-readable message in the first place. Then we just tell 🤵️Alfred that any messages in these special CustomExceptionsForClient envelopes can be directly handed to our clients.
 Common situations turned into appropriate responses via custom exceptions.
 
 If your situation doesn't quite fit, create a new exception type and map it to the appropriate response in the handler.
@@ -156,7 +164,7 @@ Think about it, Domain errors are always a violation of a business rule, a clien
 You don't need to obscure things with snake_case_message_codes to be caught and converted into human-readable messages higher up.
 The Exceptions can just be human-readable messages you want the client to read directly, coming directly from the domain layer that knows what it's talking about.
 
-A good starting point for API's is to tell 🤵🏼‍️Alfred that any DomainException is a 400 `bad_request` with getMessage() handed directly to the client.
+A good starting point for API's is to tell 🤵️Alfred that any DomainException is a 400 `bad_request` with getMessage() handed directly to the client.
 ```php
 catch (\project\Domain\DomainException $e) {
     return ApiResponseBuilder(400, 'bad_request', $e->getMessage());
@@ -181,7 +189,7 @@ Doing this from scratch makes DDD a lot more useful, and makes the code much cle
 ### ResourceExceptions
 This would be used very sparingly within your REST API resources/controllers only.
 
-They can be used to throw any response you see fit with 🤵🏼‍️Alfred using the error codes as response code.
+They can be used to throw any response you see fit with 🤵️Alfred using the error codes as response code.
 ```php
 catch (\project\Controllers\ResourceException $r) {
    http_response_code($r->getCode());
@@ -197,7 +205,7 @@ As I said tho, you won't need to use it much, but you will probably run into a s
 ### Infrastructure exceptions?
 Nah.
 
-I don't see a need for these as you will probably be talking about internal knowledge only devs can read, so you can just use a global \Exception in this case and let 🤵🏼‍️Alfred log it and return a generic 🤷‍.
+I don't see a need for these as you will probably be talking about internal knowledge only devs can read, so you can just use a global \Exception in this case and let 🤵️Alfred log it and return a generic 🤷‍.
 
 This brings me back to...
 
@@ -205,7 +213,7 @@ This brings me back to...
 It's incredibly unlikely you need these anymore however, you may have a situation where only a developer should see this message, and only you can make it useful for him to read.
 
 eg. Some PHP plugin is required for a specific operation and wasn't installed/enabled in production.
-For these cases, you can throw \Error or \Exception or even \InvalidArgumentException once people stop using it for client messages of course 😆🤦‍️.
+For these cases, you can throw \Error or \Exception or even \InvalidArgumentException once people stop using it for client messages of course 😆‍.
 
 ### DDD Dependency concerns.
 "But you can't have dependencies on the domain layer!". Yes and no.
@@ -213,22 +221,25 @@ For these cases, you can throw \Error or \Exception or even \InvalidArgumentExce
 Technically that's not a rule in hexagonal architecture, and we already depend on Domain interfaces right? Let's dive into why.
 
 The interfaces are to keep Domain away from implementation constraints while allowing it to tell us the concept to implement.
-Generally, you avoid depending on the domain to avoid the domain having to change if that dependency changes. The domain layer can not be restrictive nor bound by the restrictions of other layers.
+Generally, you avoid depending on the domain to avoid the domain having to change if that dependency changes.
+The domain layer can not be restrictive nor bound by the restrictions of other layers.
 
-The point of hexagonal architecture is that the Domain doesn't know, care about, or have to adapt to implementations, and this will remain true with our exceptions and how we handle them.
+The point of hexagonal architecture is that the Domain doesn't know, care about, or have to adapt to implementations,
+and this will remain true with our exceptions and how we handle them.
 
 DomainException has no ties so make its messages client-friendly and let em fly 🕊.
 
 ## QOL for developers.
-🤵🏼‍️Alfred isn't there when you're building components in the bat cave, which is great.
+🤵️Alfred isn't there when you're building components in the bat cave, which is great.
 
-Error handling, logging and all of this junk are now absent during Unit-tests because its all done in the entry point only used for production.
+Because Error handling, logging and all of this junk are now only done in applications entry point,
+they can be completely absent and not even though about during Unit-tests.
 
 So we simply see errors and fix them. Nice.
 
 But when it comes to testing the full API stack locally with an API client, we have to squint at stack traces crammed into a log file 🤮. So let's take things a step further.
 
-Now that we have 🤵🏼‍️Alfred we can tell him to drop the formalities when its just between us and give detailed information in dev testing.
+Now that we have 🤵️Alfred we can tell him to drop the formalities when its just between us and give detailed information in dev testing.
 ```php
 } catch (\Throwable $e) {
     $response = [...
@@ -260,7 +271,8 @@ if (getenv('LOCAL_DEV' === 'yes its just us')) {
     ];
 }
 ```
-The next level of this would be to make them into Jetbrains URL's, so you can just click to open the file at the exact line the error occurred, but this might be going too far. 🤓
+The next level of this (which I have done before) would be to construct Jetbrains toolbox URL's,
+so you can just click to open the file at the exact line the error occurred 🤓.
 
 One other problem for developer environments is we have notices and warnings enabled that can just wreck all nice behaviours.
 
@@ -268,8 +280,10 @@ This is why you might want to apply the...
 
 ## Optional 4th rule => Upgrade Notices and Warnings into Errors.
 They are non-fatal, but we still want to see them, however,
-the classic "output started before headers sent" and similar problems occur where when non-fatal notices and warnings can cause fatal errors that break development and bypass all our attempts to log and catch and report errors in nice ways😒.
+the classic "output started before headers sent" and similar problems occur where when non-fatal notices and warnings can
+cause fatal errors that break development and bypass all our attempts to log and catch and report errors in nice ways😒.
 
+Some people get frustrated and disable reporting of these notices and warnings in their configs which is a nono.
 In my opinion, a notice or a warning is a potential error waiting to happen and should be treated as such.
 
 These can be captured with legacy handlers. Different from Exception handling, this is an old error mechanism used back in the day 👴, and it is still used in PHP 7+ for non-fatal notices and warnings only.
@@ -278,8 +292,9 @@ So lets convert them into exceptions with [set_error_handler()](https://www.php.
 We can implement an error handler to throw an [\ErrorException](https://www.php.net/manual/en/class.errorexception.php) that was introduced for this very purpose.
 ```php
 set_error_handler(function ($severity, $message, $file, $line) {
-    if (!(error_reporting() & $severity)) {//bitwise comparison
-        // php isnt reporting this error so do nothing.
+    if (!(error_reporting() & $severity)) {//bitwise comparison on server settings.
+        //php isn't reporting this error so do nothing.
+        //can be modified to specifically ignore notices or deprecations etc if you wish.
         return;
     }
     throw new \ErrorException($message, 0, $severity, $file, $line);
@@ -288,22 +303,33 @@ set_error_handler(function ($severity, $message, $file, $line) {
 Instead of seeing a fatal side effect, you just see the notice/warning as an error instead.
 Nice!
 
+If the notices and warnings are just too numerous to deal with right now, you may need to add an output buffer instead.
+
+
 ## Optional 5th rule => Register a shutdown function.
-What if PHP itself crashes due to a fatal error. Hoe can it execute your try catch if the php process is no longer running?
-// TODO : fix this section up.
+What if PHP itself crashes due to a fatal error. How can it execute your try catch if the php process is no longer running?
+
+This is highly unlikely, but it's not impossible, especially if you are upgrading a Legacy Monolith application.
+You should definitely do this if you have dynamic file includes with function definitions
+as this increases the potential for can cause compile errors.
+
 ```php
-function fatality()
+function fatality💀()
 {
     $error = error_get_last();
 
     if ($error && $error['type'] === E_ERROR)
     {  
-        //log the error without any dependencies that could break.
+        //take it to the morgue ⚰, err I mean log the error.
+        //Don't use any dependencies that could break.
     }
 }
 
-register_shutdown_function('fatality');
+register_shutdown_function('fatality💀');
 ```
+When doing this, remember not to use any dependencies that can break following the same principle as the top level handler.
+PHP already provides a great [error_log](https://www.php.net/manual/en/function.error-log.php) method
+and there is not compelling reason to risk using a custom or 3rd party library to log errors to a file.
 
 # Edge cases.
 Let's cover some additional situations that might pop up.
@@ -317,8 +343,9 @@ if ($severity == E_DEPRECATED || $severity == E_USER_DEPRECATED) { /*silently lo
 ```
 You could just disable reporting of deprecation notices, but we want to know about these and address them at some point.
 
-## 🤵🏼‍️Alfred needs to use complex libraries. 🤹
-Let's say your top-level try-catch needs to translate your client messages into other languages, use a logger library, or for some reason have to use some big process that could crash while creating a response 🤣.
+## 🤵️Alfred needs to use complex libraries. 🤹
+Let's say your top-level try-catch needs to translate your client messages into other languages,
+use a logger library, or for some reason have to use some big process that could crash while creating a response 🤣.
 
 If the top-level exception handler needs complex libraries then you must have🥁.... 2, yes 2, top-level exceptions handlers 🧛‍️ ah ah ah.
 
@@ -326,7 +353,7 @@ Have your main handler inside your application and then an extra try-catch outsi
 ```php
 //index.php
 try {
-    $app->run(); //move 🤵🏼‍️Alfred🤵🏼‍️ in here
+    $app->run(); //move 🤵️ Alfred in here and have one final try catch.
 } catch (\Throwable $e) {
     //respond without any dependencies
     header('HTTP/1.1 500 Internal Server Error');
@@ -341,21 +368,23 @@ try {
     );
 }
 ```
-If you can't move 🤵🏼‍️Alfred inside the application you can just nest the try catches, I'd move things around for readability even if it's just renaming your old index.php and include it in a new one.
+If you can't move 🤵️Alfred inside the application you can just nest the try catches, I'd move things around for readability even if it's just renaming your old index.php and include it in a new one.
 ```php
 //new index.php
 try {
-    require_once 'run_app.php';//old index.php with 🤵🏼‍️Alfred.
+    require_once 'run_app.php';//old index.php with 🤵️Alfred.
 } catch {
     //respond without any dependencies...
 }
 ```
 
 ## Too many exception types.
-A friend of mine told me of an issues he faces where people keep creating new exceptions instead of using existing ones, so I thought I'd address this quickly.
-You should discuss this and introduce 🤵🏼‍️Alfred to your team so everyone knows what's going on.
+A friend of mine told me of an issues he faces where people keep creating new exceptions instead of using existing ones,
+so I thought I'd address this quickly. It just comes down to communication.
 
-This isn't really a problem when everyone meets 🤵🏼‍️Alfred.
+Introduce 🤵️Alfred to your team. 
+
+This isn't really a problem when everyone meets 🤵️Alfred.
 
 As soon as I go to the handler and map my new exception type to a response I'll see right away, oh... there is already an exception for this scenario. Cool. *deletes new exception and uses old one*
 
