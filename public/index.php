@@ -8,8 +8,6 @@ use BHayes\BHayes\Router\RouteException;
 use BHayes\BHayes\Router\Router;
 
 try {
-    //ensure a consistent working directory in-case funky things happen with htaccess rules.
-    chdir(__DIR__);
     require_once __DIR__ . '/../vendor/autoload.php';
 
     $renderer = new Renderer();
