@@ -39,21 +39,43 @@ try {
         }
     }
 
+
 } catch (\Throwable $error) {
-    include __DIR__ . '/500.php';
-    $errorInfo = [
+    //This is the last line of defence do not use any dependencies that could break.
+
+    $errorInfo = [//for developers eyes only
         'Error' => $error->getMessage(),
         ' file' => $error->getFile(),
         ' line' => $error->getLine(),
         'trace' => $error->getTrace()
     ];
 
+    //log the error
     error_log(json_encode($errorInfo));
 
-    //show info for local dev.
-    if (str_ends_with($_SERVER['HTTP_HOST'], 'localhost')) {
-        echo "<pre style='position: absolute; left: 10px; top: 100vh;'>";
-        var_export($errorInfo);
+    //construct error response.
+    http_response_code(500);
+    $errorResponse = ['error' => ['message' => 'Internal server error']];
+    $encodingOptions = JSON_UNESCAPED_SLASHES;
+
+    //extra info for developers.
+    $developerMode = (stripos($_SERVER['HTTP_HOST'], 'localhost') !== false);
+    if ($developerMode) {
+        $errorResponse['error_details'] = $errorInfo;
+        $encodingOptions = $encodingOptions | JSON_PRETTY_PRINT;
+    }
+
+    //respond with JSON if appropriate
+    if ($_SERVER['REQUEST_METHOD'] !== 'GET' || $_SERVER['HTTP_ACCEPT'] === 'application/json') {
+        echo json_encode($errorResponse, $encodingOptions);
+        return;
+    }
+
+    //otherwise assume we want a nice html error page.
+    include __DIR__ . '/500.php';
+    if ($developerMode) {
+        echo "<pre style='z-index: 99999999999999999;'>";
+        echo json_encode($errorResponse, $encodingOptions);
         echo "</pre>";
     }
 }
@@ -62,8 +84,7 @@ try {
 
 <style>
     <?=
-    //doing it this way first prevents the page flashing white first in dark mode while it waits to download the separate css file.
-    file_get_contents(__DIR__ . '/css/global.css') ?>
+    //including it via php prevents the page flashing white before the css file is processed.
+    include __DIR__ . '/css/global.css';
+    ?>
 </style>
-
-<link rel="stylesheet" href="/css/global.css">

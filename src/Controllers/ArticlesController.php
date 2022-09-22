@@ -33,6 +33,12 @@ class ArticlesController implements ControllerInterface
         if (!$filename) throw new RouteException(404);
 
         $md = (new Parsedown())->text(file_get_contents($filename));
+        $md = <<<HTML
+<main style="max-width: 1000px; margin: auto; box-shadow: 0 0 34px 20px rgba(0,0,0,0.79); padding: 30px">
+$md
+</main>
+HTML;
+
         return new BasicResponse($md);
     }
 }

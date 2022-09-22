@@ -8,11 +8,17 @@
     }
 }
 
-/* Dark mode */
+/*!* Dark mode *!*/
 @media (prefers-color-scheme: dark) {
     body {
-        background-color: black;
-        color: white;
+        background-color: #2d2d2e;
+        color: #d7dbdf;
+    }
+    a:link {
+        color: lightskyblue;
+    }
+    a:visited {
+        color: cornflowerblue;
     }
 }
 
