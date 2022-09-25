@@ -37,7 +37,6 @@ try {
         }
     }
 
-
 } catch (\Throwable $error) {
     //This is the last line of defence do not use any dependencies that could break.
 
