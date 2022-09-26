@@ -4,7 +4,7 @@
 PROJECT=`basename $(pwd)`
 
 # If port is Zero, a free port is assigned avoiding collisions with other projects.
-PORT="0"
+PORT="8080"
 
 # Run docker
 docker run -dit --name $PROJECT -p $PORT:80 \

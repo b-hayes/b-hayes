@@ -27,7 +27,7 @@ RewriteCond %{HTTP_HOST} !^www\.
 RewriteRule ^(.*)$ https://www.%{HTTP_HOST}/$1 [R=301,L]
 
 #[black listed files types] redirects file requests to the index.php if blacklisted extention (except for index.php itself)
-RewriteCond %{REQUEST_URI} .*(.htaccess|.htpasswd|.ini|.psd|.log|.sh|.bash|.key|.php)$
+RewriteCond %{REQUEST_URI} .*(.htaccess|.htpasswd|.ini|.psd|.log|.sh|.bash|.key|.php|.md)$
 RewriteCond %{REQUEST_URI} !=/index.php
 RewriteRule .* /index.php [L,QSA]
 
