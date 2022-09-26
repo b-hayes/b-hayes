@@ -40,6 +40,12 @@ $md
 </main>
 HTML;
 
+        //Absolute paths work for both the site and GitHub but not code editors.
+        //relative path work for code editors and GitHub but not the site.
+
+        //SO, articles use relative links and we convert them to absolute paths here for the site.
+//        $md = preg_replace("")
+
         return new BasicResponse($md);
     }
 }
