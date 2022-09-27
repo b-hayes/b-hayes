@@ -14,7 +14,7 @@ class ArticlesController implements ControllerInterface
     private string $basePath;
     private string $defaultFile;
 
-    public function __construct(string $folder = '../articles', string $defaultFile = '../README.md')
+    public function __construct(string $folder = 'articles', string $defaultFile = '../README.md')
     {
         $this->basePath = $folder;
         $this->defaultFile = $defaultFile;
@@ -35,15 +35,26 @@ class ArticlesController implements ControllerInterface
         $md = (new Parsedown())->text(file_get_contents($filename));
         //todo: create some view rendering solution.
         $md = <<<HTML
-<main style="max-width: 1000px; margin: auto; box-shadow: 0 0 34px 20px rgba(0,0,0,0.79); padding: 30px">
+<main class="article" style="max-width: 1000px; margin: auto; box-shadow: 0 0 34px 20px rgba(0,0,0,0.79); padding: 30px">
 $md
 </main>
+<style>
+main .article {
+    max-width: 1000px;
+    margin: auto;
+    box-shadow: 0 0 34px 20px rgba(0,0,0,0.79);
+    padding: 30px;
+}
+main img{
+    max-width: 100%;    
+}
+</style>
 HTML;
 
         //Absolute paths work for both the site and GitHub but not code editors.
         //relative path work for code editors and GitHub but not the site.
 
-        //SO, articles use relative links and we convert them to absolute paths here for the site.
+        //SO, articles use relative links, and we convert them to absolute paths here for the site.
 //        $md = preg_replace("")
 
         return new BasicResponse($md);
