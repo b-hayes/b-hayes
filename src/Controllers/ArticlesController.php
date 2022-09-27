@@ -51,11 +51,8 @@ main img{
 </style>
 HTML;
 
-        //Absolute paths work for both the site and GitHub but not code editors.
-        //relative path work for code editors and GitHub but not the site.
-
-        //SO, articles use relative links, and we convert them to absolute paths here for the site.
-//        $md = preg_replace("")
+        //strip the word public out of the url paths in the links to make the web servers url paths.
+        $md = str_replace(['img src="public/', 'a href="public/'], ['img src="', 'a href="'], $md);
 
         return new BasicResponse($md);
     }
