@@ -8,8 +8,6 @@ use BHayes\BHayes\Router\RouteException;
 use BHayes\BHayes\Router\Router;
 
 try {
-    //ensure a consistent working directory in-case funky things happen with htaccess rules.
-    chdir(__DIR__);
     require_once __DIR__ . '/../vendor/autoload.php';
 
     $renderer = new Renderer();
@@ -24,7 +22,6 @@ try {
         $potentialErrorPage = __DIR__ . "/{$exception->code()}.php";
         if (is_file($potentialErrorPage)) {
             include $potentialErrorPage;
-
         }
         //show info for local dev.
         if (str_ends_with($_SERVER['HTTP_HOST'], 'localhost')) {
@@ -38,7 +35,6 @@ try {
             echo "</pre>";
         }
     }
-
 
 } catch (\Throwable $error) {
     //This is the last line of defence do not use any dependencies that could break.

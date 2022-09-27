@@ -14,7 +14,7 @@ class ArticlesController implements ControllerInterface
     private string $basePath;
     private string $defaultFile;
 
-    public function __construct(string $folder = '../articles', string $defaultFile = '../README.md')
+    public function __construct(string $folder = 'articles', string $defaultFile = '../README.md')
     {
         $this->basePath = $folder;
         $this->defaultFile = $defaultFile;
@@ -33,11 +33,26 @@ class ArticlesController implements ControllerInterface
         if (!$filename) throw new RouteException(404);
 
         $md = (new Parsedown())->text(file_get_contents($filename));
+        //todo: create some view rendering solution.
         $md = <<<HTML
-<main style="max-width: 1000px; margin: auto; box-shadow: 0 0 34px 20px rgba(0,0,0,0.79); padding: 30px">
+<main class="article" style="max-width: 1000px; margin: auto; box-shadow: 0 0 34px 20px rgba(0,0,0,0.79); padding: 30px">
 $md
 </main>
+<style>
+main .article {
+    max-width: 1000px;
+    margin: auto;
+    box-shadow: 0 0 34px 20px rgba(0,0,0,0.79);
+    padding: 30px;
+}
+main img{
+    max-width: 100%;    
+}
+</style>
 HTML;
+
+        //strip the word public out of the url paths in the links to make the web servers url paths.
+        $md = str_replace(['img src="public/', 'a href="public/'], ['img src="', 'a href="'], $md);
 
         return new BasicResponse($md);
     }

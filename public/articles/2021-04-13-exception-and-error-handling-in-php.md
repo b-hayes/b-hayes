@@ -35,9 +35,11 @@ In my experience I have seen a lot of complex Exception juggling, catching conve
 - Copy-paste mentality spreading common mistakes.
 - 200 ok response for fatal errors.
 
-![200 OK response for fatal errors.](img/200-OK-response-for-fatal-errors.jpg)
+![200 OK response for fatal errors.](../img/200-OK-response-for-fatal-errors.jpg)
 
-In production, you won't see this sensitive information because your DevOps team or service providers will disable error reporting. However, developers also won't see it either (Well not where you expect if you have a custom logger). Web projects may produce a blank nothing 😶, and API projects will confuse their consumers making them interpret it as a successful operation. 🤦‍️
+In production, you won't see this sensitive information because your DevOps team or service providers will disable error reporting.
+However, developers also won't see it either (Well not where you expect if you have a custom logger).
+Web projects may produce a blank nothing 😶, and API projects will confuse their consumers making them interpret it as a successful operation. 🤦‍️
 
 This is one of many less-than-ideal situations you might have encountered.
 
@@ -120,9 +122,9 @@ This is the next logical step in the progression.
 Not sure how this trend caught fire, but I see this a lot.
 People using  \InvalidArgumentException used to expose messages directly to the client.
 
-![Oh no, oh no, oh no no no no no no](img/search-InvalidArgumentException.png)
+![Oh no, oh no, oh no no no no no no](../img/search-InvalidArgumentException.png)
 
-![Global Exception type used as a client response](img/InvalidArgumentException-used-as-client-response.png)
+![Global Exception type used as a client response](../img/InvalidArgumentException-used-as-client-response.png)
 
 I get it, using it for invalid request input makes sense on the surface, but also remember those [logic exceptions](https://www.php.net/manual/en/class.logicexception.php) are in the global namespace.
 
@@ -149,7 +151,7 @@ As a base Exception for the Domain layer and any specific domain exceptions to e
 
 I also recommend you override the `__contruct` but only to indicate to your devs that these should be client-friendly messages.
 
-![Dev hints are awesome](img/domain-exception-hints.jpg)
+![Dev hints are awesome](../img/domain-exception-hints.jpg)
 
 Think about it, Domain errors are always a violation of a business rule, a client-side mistake, and are often what you want to show the client.
 

@@ -9,8 +9,8 @@ that turns markdown into HTML.
 
 There is also some nifty CSS to sync with your operating system's dark mode 😎
 
-It is simple yet effective and embodies some of my [core principles](/articles/BOPs.md).
-Also checkout [Exception an Error Handling in PHP](/articles/2021-04-13-exception-and-error-handling-in-php.md).
+It is simple yet effective and embodies some of my [core principles](public/articles/BOPs.md).
+Also checkout [Exception an Error Handling in PHP](public/articles/2021-04-13-exception-and-error-handling-in-php.md).
 
 ## Where is this going?
 Mainly just providing some info and links to my hobby projects.
