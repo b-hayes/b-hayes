@@ -67,7 +67,6 @@ class Router
      */
     private function resolveComplexRoute(array $segments, string $method): array
     {
-        echo "<pre>";
         $collected = [];
         $controller = null;
         $routes = $this->routes[$method] ?? [];

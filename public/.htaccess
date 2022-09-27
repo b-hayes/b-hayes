@@ -19,15 +19,20 @@ Options -Indexes
 RewriteRule ^(.*)/$ /$1 [L,R=301]
 
 #redirect to https://www if not a localhost, not dev, not qa, not www, or not https
-RewriteCond %{SERVER_ADDR} !^127.0.0.1|::1
+RewriteCond %{HTTP_HOST} !localhost(?::\d+)?$ [NC]
 RewriteCond %{HTTP_HOST} !^qa\.
 RewriteCond %{HTTP_HOST} !^dev\.
 RewriteCond %{HTTPS} off [OR]
 RewriteCond %{HTTP_HOST} !^www\.
 RewriteRule ^(.*)$ https://www.%{HTTP_HOST}/$1 [R=301,L]
 
+#[redriect hidden files] all files begining with dot eg, .htaccess will be directed to index.php
+RewriteRule (^\.|/\.) /index.php
+#[access to hidden files are fobidden] a safer version of the above. I prefer to return a 404 instead of a 403 so people dont even know if the file exists.
+RewriteRule (^\.|/\.) – [F]
+
 #[black listed files types] redirects file requests to the index.php if blacklisted extention (except for index.php itself)
-RewriteCond %{REQUEST_URI} .*(.htaccess|.htpasswd|.ini|.psd|.log|.sh|.bash|.key|.php)$
+RewriteCond %{REQUEST_URI} .*(.htaccess|.htpasswd|.ini|.psd|.log|.sh|.bash|.key|.php|.md)$
 RewriteCond %{REQUEST_URI} !=/index.php
 RewriteRule .* /index.php [L,QSA]
 
