@@ -30,18 +30,15 @@ In the past, I have not published or shown much of my projects to anyone and fig
 
 This might even encourage me to publish some of them for people to use.
 
-## What I am currently working on.
+## Projects I am working on.
 I have a bunch of crazy ideas and not much time to work on them so right now it's just...
+I'll list some more if I get time to put my older stuff online somewhere,
+or I may just build new things instead 😁
 
 ### [This project.](https://b-hayes.com)
 I need the rendered content to be prettier to look at.
 Currently, it has dark and light mode detection and that's it.
-I'm going to use this to learn some front end concepts along the way.
 
-The router is probably going to change a few times while I experiment with different ideas.
-
-## Other Projects.
-Check out my awesome [CLI Package](https://github.com/b-hayes/cli) that turns your PHP class into a command-line application.
-
-I'll list some more if I get time to put my older stuff online somewhere,
-or I may just build new things instead 😁
+## [CLI Package](https://github.com/b-hayes/cli).
+Turns any PHP class into a command-line application.
+![https://i.imgur.com/uu8gQBr.gif](https://i.imgur.com/uu8gQBr.gif)
