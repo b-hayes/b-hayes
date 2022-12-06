@@ -42,3 +42,7 @@ Currently, it has dark and light mode detection and that's it.
 ## [CLI Package](https://github.com/b-hayes/cli).
 Turns any PHP class into a command-line application.
 ![https://i.imgur.com/uu8gQBr.gif](https://i.imgur.com/uu8gQBr.gif)
+
+## [Falling Trash](https://falling-trash.b-hayes.com).
+A mobile game originally created for the University Of Tasmania Sustainability Department.
+![https://falling-trash.b-hayes.com/img/Feature.png](https://falling-trash.b-hayes.com/img/Feature.png)
