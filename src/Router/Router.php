@@ -27,6 +27,7 @@ class Router
         $segments = explode('/', $path);
         array_shift($segments);//always an empty one at the start due to the first '/'
 
+
         //complex match
         if (!$controller) {
             list($controller, $segments) = $this->resolveComplexRoute($segments,$method);
