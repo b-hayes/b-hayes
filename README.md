@@ -1,6 +1,16 @@
+<head>
+    <title>B-Hayes.</title>
+    <meta property="og:title" content="Falling Trash.">
+    <meta name="description" content="Personal Developer Website.">
+    <meta property="og:description" content="Personal Developer Website.">
+    <meta property="og:image" content="public/img/b-hayes-title.jpg">
+    <link rel="icon" type="image/x-icon" href="public/img/favicon.png">
+</head>
+
 # Hi there 👋
 Decided to turn my [GitHub profile](https://github.com/b-hayes/b-hayes) repo into a functioning website.
 **Check it out @ [b-hayes.com](https://b-hayes.com).**
+![B-Hayes](public/img/b-hayes-title.jpg)
 
 It includes a simple routing solution I designed in an afternoon and my favourite htaccess setup.
 

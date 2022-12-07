@@ -52,7 +52,7 @@ main img{
 HTML;
 
         //strip the word public out of the url paths in the links to make the web servers url paths.
-        $md = str_replace(['img src="public/', 'a href="public/'], ['img src="', 'a href="'], $md);
+        $md = str_replace(['img src="public/', 'href="public/'], ['img src="', 'href="'], $md);
 
         return new BasicResponse($md);
     }
