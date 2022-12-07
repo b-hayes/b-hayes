@@ -1,6 +1,7 @@
 # Hi there 👋
 Decided to turn my [GitHub profile](https://github.com/b-hayes/b-hayes) repo into a functioning website.
 **Check it out @ [b-hayes.com](https://b-hayes.com).**
+![B-Hayes](public/img/b-hayes-title.jpg)
 
 It includes a simple routing solution I designed in an afternoon and my favourite htaccess setup.
 
