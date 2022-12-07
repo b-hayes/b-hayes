@@ -56,7 +56,7 @@ HTML;
         $header = <<<HTML
 <head>
     <title>B-Hayes.</title>
-    <meta property="og:title" content="Falling Trash.">
+    <meta property="og:title" content="B-Hayes.">
     <meta name="description" content="Personal Developer Website.">
     <meta property="og:description" content="Personal Developer Website.">
     <meta property="og:image" content="img/b-hayes-title.jpg">
