@@ -52,8 +52,18 @@ main img{
 HTML;
 
         //strip the word public out of the url paths in the links to make the web servers url paths.
-        $md = str_replace(['img src="public/', 'href="public/'], ['img src="', 'href="'], $md);
+        $md = str_replace(['img src="public/', 'a href="public/'], ['img src="', 'a href="'], $md);
+        $header = <<<HTML
+<head>
+    <title>B-Hayes.</title>
+    <meta property="og:title" content="Falling Trash.">
+    <meta name="description" content="Personal Developer Website.">
+    <meta property="og:description" content="Personal Developer Website.">
+    <meta property="og:image" content="img/b-hayes-title.jpg">
+    <link rel="icon" type="image/x-icon" href="img/favicon.png">
+</head>
+HTML;
 
-        return new BasicResponse($md);
+        return new BasicResponse($header . $md);
     }
 }
