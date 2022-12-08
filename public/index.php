@@ -19,7 +19,7 @@ try {
         //access log
         $requestLog = __DIR__ . '/../../' . $_SERVER['HTTP_HOST'] . '-access.log';
         $requestData = json_encode([
-            date('D-M-Y'),
+            date('D-M-Y h:i:s A'),
             'Request' => [
                 $_SERVER['REQUEST_METHOD'],
                 $_SERVER['REQUEST_URI'],
@@ -33,7 +33,7 @@ try {
         ], JSON_UNESCAPED_SLASHES)
             //fallback to just the URI if json_encode fails.
             ?? $_SERVER['REQUEST_URI'];
-        file_put_contents($requestLog, $requestData);
+        file_put_contents($requestLog, $requestData . "\n", FILE_APPEND);
 
         $response = $router->invoke();
         $renderer->render($response);
