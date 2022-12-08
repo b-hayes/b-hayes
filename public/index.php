@@ -16,6 +16,25 @@ try {
     $router->add('GET', '/articles/{fileName}', new \BHayes\BHayes\Controllers\ArticlesController());
     //Get && render a response from the requested route.
     try {
+        //access log
+        $requestLog = __DIR__ . '/../../' . $_SERVER['HTTP_HOST'] . '-access.log';
+        $requestData = json_encode([
+            date('D-M-Y'),
+            'Request' => [
+                $_SERVER['REQUEST_METHOD'],
+                $_SERVER['REQUEST_URI'],
+                $_REQUEST,
+                $_FILES,
+            ],
+            'Client' => [
+                Router::clientIpAddress(),
+                //Router::clientCountry() //todo: find a way to do this without sending the IP address to some 3rd party.
+            ]
+        ], JSON_UNESCAPED_SLASHES)
+            //fallback to just the URI if json_encode fails.
+            ?? $_SERVER['REQUEST_URI'];
+        file_put_contents($requestLog, $requestData);
+
         $response = $router->invoke();
         $renderer->render($response);
     } catch (RouteException $exception) {
