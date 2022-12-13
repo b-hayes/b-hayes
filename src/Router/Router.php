@@ -15,7 +15,7 @@ class Router
     public static function requestUriPath(): string
     {
         if ($_SERVER['REQUEST_URI'] === '/') return $_SERVER['REQUEST_URI'];
-        return  rtrim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/\\');
+        return rtrim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/\\');
     }
 
     public function invoke(string $path = null, string $method = null): Response
@@ -30,7 +30,7 @@ class Router
 
         //complex match
         if (!$controller) {
-            list($controller, $segments) = $this->resolveComplexRoute($segments,$method);
+            list($controller, $segments) = $this->resolveComplexRoute($segments, $method);
         }
 
         return $controller($segments, $_REQUEST);
@@ -47,7 +47,7 @@ class Router
         }
 
         //converts the "/uri/paths" into a tree so that iterating all of is no necessary to match them later.
-        $explode =array_filter( explode('/', $path));
+        $explode = array_filter(explode('/', $path));
         $arrayPath = '["' . implode('"]["', $explode) . '"]';
         $code = "\$this->routes[\$method]$arrayPath = \$responseGenerator;";
         eval($code);
@@ -55,9 +55,26 @@ class Router
 
     public static function clientIpAddress(): string
     {
-        return $_SERVER['HTTP_CLIENT_IP']
-            ?? $_SERVER['HTTP_X_FORWARDED_FOR']
-            ?? $_SERVER['REMOTE_ADDR'];
+        static $clientIp;
+        if (!$clientIp) {
+            $clientIp = $_SERVER['HTTP_CLIENT_IP']
+                ?? $_SERVER['HTTP_X_FORWARDED_FOR']
+                ?? $_SERVER['REMOTE_ADDR'];
+        }
+
+        return $clientIp;
+    }
+
+    public static function clientCountry(): string
+    {
+        static $clientCountry;
+        if (!$clientCountry) {
+            $clientCountry = file_get_contents(
+                'http://api.hostip.info/country.php?ip=' . self::clientIpAddress()
+            );
+        }
+
+        return $clientCountry;
     }
 
     /**
@@ -83,11 +100,11 @@ class Router
             $routes = array_filter($routes, fn($key) => str_contains($key, '{'), ARRAY_FILTER_USE_KEY);
             if (count($routes) === 1) {
                 $varName = array_key_first($routes);
-                $collected[trim($varName,'{}')] = $seg;
+                $collected[trim($varName, '{}')] = $seg;
                 $controller = $routes = $routes[$varName];
                 //echo "$seg was matched with $varName!\n";
                 continue;
-            } elseif(count($routes) > 1) {
+            } elseif (count($routes) > 1) {
                 throw new \Exception("'$seg' matches more than one route: " . json_encode($routes));
             }
             //echo "no match for $seg. Stopped looking.\n";
