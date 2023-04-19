@@ -15,7 +15,7 @@ class Router
     public static function requestUriPath(): string
     {
         if ($_SERVER['REQUEST_URI'] === '/') return $_SERVER['REQUEST_URI'];
-        return rtrim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/\\');
+        return rtrim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) ?: '', '/\\');
     }
 
     public function invoke(string $path = null, string $method = null): Response
