@@ -14,3 +14,8 @@ docker run -dit --name "$PROJECT" -p $PORT:80 \
 
 # Show the user the container info
 docker ps | grep "$PROJECT"
+
+echo "Dont forget to give write permissions to your project.
+helpful commands:
+    docker $PROJECT stop/start
+    docker rm $PROJECT"
