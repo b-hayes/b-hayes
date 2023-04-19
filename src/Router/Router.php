@@ -90,7 +90,7 @@ class Router
         $routes = $this->routes[$method] ?? [];
         foreach ($segments as $seg) {
             //direct match
-            if (isset($routes[$seg])) {
+            if (is_array($routes) && isset($routes[$seg])) {
                 $controller = $routes = $routes[$seg];
                 $collected[] = $seg;
                 //echo "$seg was matched!\n";
