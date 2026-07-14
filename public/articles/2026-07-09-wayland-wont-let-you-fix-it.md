@@ -178,3 +178,13 @@ The only thing genuinely in your hands is refusing to get taxed twice. If it's g
 That's the whole thing. Not "Wayland is hard." Wayland decided, for me, that the problem it made for me isn't mine to solve.
 
 I'm not fixing it. I'm managing it.
+
+## Epilogue: the tape drawer
+
+I've now duct-taped a $5,000 laptop. Twice. Two different machines, two different operating systems, two completely unrelated reasons.
+
+The first was a MacBook. The machined aluminium edge was so sharp it left red marks in my wrists, so I ran a strip of tape along the one part of a "perfect" unibody that actually touches a human. The second is this one — taping off the top of the trackpad, because the software that used to let me set a deadzone decided I shouldn't be allowed to have one.
+
+Different company, different OS, different decade. Same story both times: the gear was designed by people so sure they'd nailed it that the only way to make it fit an actual body was two dollars of hardware-store tape — and both times the official line was that *I* was holding it wrong.
+
+The tape isn't the joke. The tape's the receipt.
