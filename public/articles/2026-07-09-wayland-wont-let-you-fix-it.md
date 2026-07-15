@@ -95,6 +95,16 @@ There is no "just let my windows come to the front" setting. No allowlist. The o
 
 It should not matter *who* triggered the window coming forward. On Wayland it's the whole ballgame.
 
+### Notifications that go nowhere
+
+Get a notification, click it, land on the thing it's about. That's the entire contract. Windows does it. macOS does it. My phone does it. Tap, you're in the app, you respond, done. It is the single most basic job a notification has.
+
+On GNOME/Wayland I click it, get a spinning progress cursor, and… nothing. The app doesn't come forward. The message doesn't open. I'm left to go hunt down whatever it was trying to tell me by hand — alt-tabbing around, digging through the app, finding it myself. The notification told me something needs me and then the OS shrugged.
+
+This isn't a nice-to-have I'm being precious about. It's my actual job. I manage people — the notifications *are* the work. Someone needs a decision, an approval, a reply, now. On every other platform I've ever used that's one click. Here there is no direct way to act on a single one of them. Every management duty that arrives as a notification turns into a scavenger hunt, and I do that hunt dozens of times a day.
+
+Same root cause as the windows-opening-behind problem, for what it's worth: GNOME hands the app an activation token and expects the app to use it to raise itself. If the app doesn't play along, GNOME spins and gives up. So a big chunk of my notifications are dead on click, and there's no setting anywhere to just make the OS *bring the window forward* — the thing it used to do, the thing literally everything else still does.
+
 ### Keyboard input: the OS eats your keys
 
 I bound `Super+.` to an emoji picker. Pressed it. Got nothing — except a stray `e` in my document and a keyboard that ignored every shortcut until I hit Escape.
