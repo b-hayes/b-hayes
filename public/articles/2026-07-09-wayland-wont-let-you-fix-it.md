@@ -141,7 +141,11 @@ On Wayland: no. The tools that would do it lean on a gamma-control protocol that
 
 You've probably spotted the running theme: half these stories end with "so I'd just log into X11." I keep saying it because it kept being the clean answer.
 
-Except I went to actually do it, and I can't. There's no X11 session on this machine to log into — GNOME dropped the Xorg session upstream, and Ubuntu followed. The escape hatch I keep reaching for has been quietly welded shut. So it isn't just that Wayland took the knobs away. It took the *door* too.
+Except I went to actually do it, and I can't. There's no X11 session on this machine to log into — GNOME dropped the Xorg session upstream, and Ubuntu followed. The escape hatch I keep reaching for has been quietly welded shut.
+
+And before you say it — yes, technically I could claw X11 back by ditching GNOME for another desktop that still ships an X11 session. Except GNOME already killed its, KDE kills its within months, and the desktops that'll hang onto X11 longest are the ones least likely to drive brand-new hybrid-GPU hardware properly. The whole escape route is being demolished industry-wide, not just on my desktop. So it isn't one welded door. It's the entire corridor being bricked up while I'm still standing in it.
+
+Wayland took the knobs away, and now it's taking the way out too.
 
 ## The part that actually stings: it didn't have to be this way
 
@@ -188,6 +192,18 @@ The only thing genuinely in your hands is refusing to get taxed twice. If it's g
 That's the whole thing. Not "Wayland is hard." Wayland decided, for me, that the problem it made for me isn't mine to solve.
 
 I'm not fixing it. I'm managing it.
+
+## I came to Linux to get away from exactly this
+
+Here's the part that actually stings the most, and it's got nothing to do with trackpads.
+
+I didn't come to Linux because it was easy. I came because it was *mine.* That's the whole pitch — the entire reason anyone picks Linux over Windows or macOS is control. It's the OS that doesn't tell you no. Script your windows, tune your input, rip out a default, wire up something weird that only makes sense to you — go for it, it's your machine. That freedom *was* the point. It's the thing I couldn't get on a Mac, and it's why I put up with everything else Linux throws at you.
+
+And now, one "design choice" at a time, it's turning into the exact thing I left. Decisions made for me. Knobs removed for my own good. Escape hatches welded shut and the welding called progress. Every wall in this article is the same wall I came to Linux specifically to avoid — I just never expected Linux itself to be the one building it.
+
+That's the bleak bit, and I don't have a clever ending for it. On Windows and macOS you at least *know* it's not your house — you rent, you accept the landlord's rules, that's the deal you signed. Linux was supposed to be the place you own the house. So if serious desktop Linux is going to spend the next few years quietly adopting the same "we decided, you'll adapt" posture as the systems people fled *to* Linux to escape — then where exactly is left to go? For someone who wants a real work machine they actually control, the honest answer right now is: nowhere better, and the options are getting narrower, not wider.
+
+I'd love to be wrong about that. I don't think I am.
 
 ## Epilogue: the tape drawer
 
